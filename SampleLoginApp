@@ -1,0 +1,16 @@
+import SwiftUI
+
+@main
+struct SampleLoginApp: App {
+    @State var isLoggedin: Bool = false
+    
+    var body: some Scene {
+        WindowGroup {
+            if isLoggedin {
+                HomeView(isLoggedin: $isLoggedin)             
+     } else {
+                LoginView(isLoggedin: $isLoggedin)
+            }
+        }
+    }
+}
