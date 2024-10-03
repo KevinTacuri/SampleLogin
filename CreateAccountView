@@ -1,0 +1,48 @@
+import SwiftUI
+
+struct CreateAccountView: View {
+    @State private var username = ""
+    @State private var password = ""
+    @State private var email = ""
+    @State private var showSuccessAlert = false  
+    var body: some View {
+        VStack {
+            Text("Create a New Account")
+                .font(.largeTitle)
+                .padding()
+            
+            TextField("Username", text: $username)
+                .textFieldStyle(.roundedBorder)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+            
+            SecureField("Password", text: $password)
+                .textFieldStyle(.roundedBorder)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+            
+            TextField("Email", text: $email)
+                .textFieldStyle(.roundedBorder)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
+            
+            Button("Create Account", action: createAccount)
+                .buttonStyle(.borderedProminent)
+                .alert(isPresented: $showSuccessAlert) {
+                    Alert(title: Text("Success"), message: Text("Cuenta creada correctamente"), dismissButton: .default(Text("OK")))
+                }
+            
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("New Account")
+    }
+    
+    func createAccount() {
+        UserDefaults.standard.set(username, forKey: "username")
+        UserDefaults.standard.set(password, forKey: "password")
+        UserDefaults.standard.set(email, forKey: "email")
+        showSuccessAlert = true
+    }
+}
